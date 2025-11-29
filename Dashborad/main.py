@@ -50,6 +50,14 @@ header {
   box-shadow: 0 4px 12px var(--shadow);
   margin-bottom: 2rem;
 }
+p.member{
+text-align : center ;
+  color : blue ;           
+}
+p.member:hover{
+    background-color: burlywood;
+    transition :cubic-bezier(0.215, 0.610, 0.355, 1);
+}           
 .metric-card {
   background-color: var(--card-bg);
   padding: 1.2rem;
@@ -89,34 +97,41 @@ st.markdown("""
 <header>
   <h1>📈 AI Revenue Predictor Dashboard</h1>
   <p style='text-align:center; color:var(--subtext-color); font-size:16px;'>
-            <br> Produced <b>for HandyHome Company</b>
+            <br> Produced <b>As Acamedic Project </b><br/>
+            Done By :- <br/>
+         <p class="member" >   - Engineer /  Mohamed Hassan <br/></p>
+         <p class="member">   - Engineer /  Mohamed Khalaf <br/></p>
+         <p class="member">   - Engineer /  Mohamed Eissa<br/></p>
+        <p class="member">- Engineer /  Rawan Ali <br/></p>
+        <p class="member">    - Engineer /  Nouran Mohamed <br/></p>
+        <p class="member">    - Engineer /  Asmaa Esmaeil <br/></p>   
   </p>
 </header>
 """, unsafe_allow_html=True)
 
-model = joblib.load('model_project.pkl')
-scaler = joblib.load('scaler_project.pkl')
-feature_names = joblib.load('features_project.pkl') 
+model = joblib.load(r'../Final Outputs/model_project.pkl')
+scaler = joblib.load(r'../Final Outputs/scaler_project.pkl')
+feature_names = joblib.load(r'../Final Outputs/features_project.pkl') 
 try:
-    poly_transformer = joblib.load('poly_transformer.pkl')
+    poly_transformer = joblib.load(r'../Final Outputs/poly_transformer.pkl')
 except FileNotFoundError:
-    st.error("🚨 Missing file 'poly_transformer.pkl'. Please run the updated 'source_code.py' first!")
+    st.error(" Missing file 'poly_transformer.pkl'. Please run the updated 'source_code.py' first!")
     st.stop()
 
 
-st.subheader("⚙️ Input Business Parameters")
+st.subheader(" Input Business Parameters")
 
 col1, col2 = st.columns(2)
 with col1:
-    date = st.date_input('📅 Date', value=datetime.date.today())
-    time_of_day = st.selectbox('🕰️ Time of Day', ['Morning', 'Afternoon', 'Evening', 'Night'])
-    category = st.selectbox('🛍️ Category', ['Service', 'Subscription', 'Product'])
-    platform = st.selectbox('💻 Platform', ['Instagram', 'In-store', 'Email', 'Google'])
+    date = st.date_input('Date', value=datetime.date.today())
+    time_of_day = st.selectbox('Time of Day', ['Morning', 'Afternoon', 'Evening', 'Night'])
+    category = st.selectbox('Category', ['Service', 'Subscription', 'Product'])
+    platform = st.selectbox('Platform', ['Instagram', 'In-store', 'Email', 'Google'])
 with col2:
-    service_type = st.selectbox('✂️ Service Type', ['Coffee', 'Dress', 'Haircut', 'Plumbing'])
-    customer_type = st.selectbox('👤 Customer Type', ['New', 'Returning'])
-    Ad_Spend = st.number_input('💸 Ad Spend ($)', min_value=0.0, step=1.0)
-    Conversions = st.number_input('📈 Conversions (0–5)', min_value=0, max_value=5, step=1)
+    service_type = st.selectbox('Service Type', ['Coffee', 'Dress', 'Haircut', 'Plumbing'])
+    customer_type = st.selectbox(' Customer Type', ['New', 'Returning'])
+    Ad_Spend = st.number_input(' Ad Spend ($)', min_value=0.0, step=1.0)
+    Conversions = st.number_input('Conversions (0–5)', min_value=0, max_value=5, step=1)
 
 encode = {
     'time_of_day': {'Morning': 0, 'Afternoon': 1, 'Evening': 2, 'Night': 3},
@@ -151,7 +166,7 @@ except Exception:
    
    
 
-if st.button("🔥 Predict Daily Revenue", type='primary' , use_container_width = True):
+if st.button(" Predict Daily Revenue", type='primary' , use_container_width = True):
     raw_input_data = pd.DataFrame({
         'Time of Day': [encode['time_of_day'][time_of_day]],
         'Category': [encode['category'][category]],
@@ -175,7 +190,7 @@ if st.button("🔥 Predict Daily Revenue", type='primary' , use_container_width 
         raw_input_data = raw_input_data[feature_names]
         input_poly = poly_transformer.transform(raw_input_data)
     except Exception as e:
-        st.error(f"❌ Error during feature preparation: {str(e)}")
+        st.error(f"Error during feature preparation: {str(e)}")
         st.stop()
 
     try:
@@ -197,7 +212,7 @@ if st.button("🔥 Predict Daily Revenue", type='primary' , use_container_width 
              color = 'red'
 
 
-        st.success(f"📈 **Predicted Daily Revenue:** `{pred_value} $`", icon="✅")
+        st.success(f" 📈 **Predicted Daily Revenue:** `{pred_value} $`", icon="✅")
 
         st.markdown("### 📊 Key Performance Indicators")
         c1, c2, c3 = st.columns(3)
@@ -217,4 +232,4 @@ if st.button("🔥 Predict Daily Revenue", type='primary' , use_container_width 
         st.info("Make sure all necessary files are correctly generated and the `used_Mehods.py` functions work.")
 
 st.divider()
-st.caption("CopyRights © Reserved for HandyHome.")
+st.caption("CopyRights © Reserved for TEAM \'Developers\'.")

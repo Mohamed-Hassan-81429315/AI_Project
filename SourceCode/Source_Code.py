@@ -19,7 +19,7 @@ from sklearn.metrics import classification_report, confusion_matrix, mean_square
 from datetime import date
 from used_Mehods import Date_Calculation
 
-data = pd.read_csv('dataset_file.csv' , sep=',')
+data = pd.read_csv('../DataSet/dataset_file.csv' , sep=',')
 print(data.head())
 
 data.info()
@@ -42,6 +42,8 @@ data["Revenue Change"]  = data['Daily Revenue'].diff()    # here we will now if 
 data["Ad_to_Revenue_Ratio"] =  data["Ad Spend"] / (data["Daily Revenue"] + 1) # here we will show of the ad_spend  has an effect on the daily revenue or not
 data.dropna(inplace=True)
 
+data.drop(columns=['Date'] , inplace = True , errors='ignore') # Removed index=1 to avoid errors if dataframe is small
+
 print(data['Last_treatment_Period_In_Years'].unique())
 print(data['Date_Of_Day'].unique())
 print(data['Month_Number'].unique())
@@ -50,9 +52,6 @@ print(data['DayOfWeek_number'].unique())
 print(data['Revenue Change'].unique())
 print(data['Ad_to_Revenue_Ratio'].unique())
 
-
-
-data.drop(columns=['Date'] , inplace = True , errors='ignore') # Removed index=1 to avoid errors if dataframe is small
 
 
 cols = ['Time of Day' ,'Customer Type' , 'Platform' , 'Service Type' , 'Category' ]
@@ -68,16 +67,11 @@ print(data['Service Type'].unique())
 print(data['Customer Type'].unique())
 print(data['Platform'].unique())
 
-# ... (plotting code remains the same) ...
 
 data['Service Type'] = data['Service Type'].fillna(data['Service Type'].mode())
 print(data['Service Type'].isnull().sum())
 
 data.head()
-
-cols = ['Time of Day' ,'Customer Type' , 'Platform' , 'Service Type' , 'Category' ]
-for c in cols :
-    print(f'{c} -> {data[c].unique()}')
 
 
 # Figure 3: User distribution by service category (Category) and access platforms (Platform).
@@ -92,7 +86,6 @@ plt.show()
 data['Time of Day'] = data['Time of Day'].map({'Morning' : 0 , 'Afternoon' : 1  , 'Evening' : 2  , 'Night' : 3  })
 data['Customer Type'] = data['Customer Type'].map({'New' : 0  , 'Returning' : 1})
 data['Platform'] = data['Platform'].map({'Instagram' : 0 , 'In-store' : 1 , 'Email' : 2 , 'Google' : 3})
-# Added 'Product': 2 to Category map, as it's used in the Streamlit app
 data ['Category']  = data ['Category'].map({'Service' : 0  , 'Subscription' : 1 , 'Product' : 2})
 data ['Service Type']   = data ['Service Type'].map({'Coffee' : 0  , 'Dress' : 1 , 'Haircut' : 2 , 'Plumbing' : 3 })
 
@@ -133,7 +126,7 @@ for item in outs :
 
 data.info()
 
-# seee the realtionship between the target 'Daily Revenue' and all columns
+# see the realtionship between the target 'Daily Revenue' and all columns
 plt.figure(figsize = (12 , 12))
 sns.heatmap(data = data.corr() , annot = True , cmap = 'coolwarm'  , linewidth = 0.5 )
 plt.title('RelationShip Between the Target \' Daily Revenue \' and the other Columns')
@@ -149,11 +142,9 @@ data.dropna(inplace=True)
 x  = data.drop(columns = ['Daily Revenue'])
 y = data['Daily Revenue']
 
-# -------------------------------------------------------------
+# ------------------------------------------------------~-------
 # 1. NEW STEP: Save the list of raw features for order enforcement in Streamlit
-raw_feature_names = x.columns.tolist()
-joblib.dump(raw_feature_names, 'features_project.pkl')
-print('Raw Feature Names (14 features) saved successfully ....')
+
 
 poly = PolynomialFeatures(degree=2)
 x = poly.fit_transform(x)
@@ -167,7 +158,7 @@ x_train = scaler.fit_transform(x_train)
 x_test  = scaler.transform(x_test) # Use transform, not fit_transform on test data
  
 
-model =XGBRegressor(n_estimator =300, learning_rate =  0.05 , max_depth =  6 ) # Corrected n_estimator to n_estimators
+model = XGBRegressor(learning_rate =  0.05 , max_depth =  6 ) # Corrected n_estimator to n_estimators
 model.fit(x_train , y_train)
 y_train_predict = model.predict(x_train)
 y_test_predict  = model.predict(x_test)
