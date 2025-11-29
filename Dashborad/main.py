@@ -6,6 +6,7 @@ import xgboost
 from xgboost import XGBRegressor
 from used_Mehods import Date_Calculation, re_use_resources, add_value, last_value_added
 from sklearn.preprocessing import PolynomialFeatures
+import os
 
 st.set_page_config(
     page_title="AI Revenue Dashboard 📊",
@@ -112,9 +113,9 @@ st.markdown("""
 # model = joblib.load(r'../Final Outputs/model_project.pkl')
 # scaler = joblib.load(r'../Final Outputs/scaler_project.pkl')
 # feature_names = joblib.load(r'../Final Outputs/features_project.pkl') 
-model = joblib.load(r'model_project.pkl')
-scaler = joblib.load(r'scaler_project.pkl')
-feature_names = joblib.load(r'features_project.pkl') 
+model_path = os.path.join(BASE_DIR, 'model_project.pkl')
+scaler = os.path.join(r'scaler_project.pkl')
+feature_names = os.path.join(r'features_project.pkl') 
 try:
     # poly_transformer = joblib.load(r'../Final Outputs/poly_transformer.pkl')
     poly_transformer = joblib.load(r'poly_transformer.pkl')
