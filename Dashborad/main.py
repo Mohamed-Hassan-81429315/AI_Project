@@ -113,12 +113,22 @@ st.markdown("""
 # model = joblib.load(r'../Final Outputs/model_project.pkl')
 # scaler = joblib.load(r'../Final Outputs/scaler_project.pkl')
 # feature_names = joblib.load(r'../Final Outputs/features_project.pkl') 
+
+# Get the folder of the current script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Define model paths
 model_path = os.path.join(BASE_DIR, 'model_project.pkl')
-scaler = os.path.join(r'scaler_project.pkl')
-feature_names = os.path.join(r'features_project.pkl') 
+features_path = os.path.join(BASE_DIR, 'features_project.pkl')
+scaler_path = os.path.join(BASE_DIR, 'scaler_project.pkl')
+poly_path = os.path.join(BASE_DIR, 'poly_transformer.pkl')
+
+model = joblib.load(model_path)
+scaler = joblib.load(scaler_path)
+feature_names = joblib.load(features_path) 
 try:
     # poly_transformer = joblib.load(r'../Final Outputs/poly_transformer.pkl')
-    poly_transformer = joblib.load(r'poly_transformer.pkl')
+    poly_transformer = joblib.load(poly_path)
 except FileNotFoundError:
     st.error(" Missing file 'poly_transformer.pkl'. Please run the updated 'source_code.py' first!")
     st.stop()
