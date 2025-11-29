@@ -109,11 +109,15 @@ st.markdown("""
 </header>
 """, unsafe_allow_html=True)
 
-model = joblib.load(r'../Final Outputs/model_project.pkl')
-scaler = joblib.load(r'../Final Outputs/scaler_project.pkl')
-feature_names = joblib.load(r'../Final Outputs/features_project.pkl') 
+# model = joblib.load(r'../Final Outputs/model_project.pkl')
+# scaler = joblib.load(r'../Final Outputs/scaler_project.pkl')
+# feature_names = joblib.load(r'../Final Outputs/features_project.pkl') 
+model = joblib.load(r'model_project.pkl')
+scaler = joblib.load(r'scaler_project.pkl')
+feature_names = joblib.load(r'features_project.pkl') 
 try:
-    poly_transformer = joblib.load(r'../Final Outputs/poly_transformer.pkl')
+    # poly_transformer = joblib.load(r'../Final Outputs/poly_transformer.pkl')
+    poly_transformer = joblib.load(r'poly_transformer.pkl')
 except FileNotFoundError:
     st.error(" Missing file 'poly_transformer.pkl'. Please run the updated 'source_code.py' first!")
     st.stop()
@@ -180,7 +184,7 @@ if st.button(" Predict Daily Revenue", type='primary' , use_container_width = Tr
         'Month_Number': [Month_Number],
         'Year_Number': [Year_Number],
         'DayOfWeek_number': [DayOfWeek_number],
-        'Revenue Change': [Revenue_Change_Feature], # استخدام القيمة المحسوبة للميزة
+        'Revenue Change': [Revenue_Change_Feature], 
         'Ad_to_Revenue_Ratio': [Ad_to_Revenue_Ratio]
     })
 
