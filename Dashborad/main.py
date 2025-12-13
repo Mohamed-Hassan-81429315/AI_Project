@@ -105,8 +105,7 @@ st.markdown("""
          <p class="member">   - Engineer /  Mohamed Eissa<br/></p>
         <p class="member">- Engineer /  Rawan Ali <br/></p>
         <p class="member">    - Engineer /  Nouran Mohamed <br/></p>
-        <p class="member">    - Engineer /  Asmaa Esmaeil <br/></p>   
-  </p>
+        </p>
 </header>
 """, unsafe_allow_html=True)
 
