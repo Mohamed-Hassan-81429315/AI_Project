@@ -239,4 +239,4 @@ if st.button(" Predict Daily Revenue", type='primary' , use_container_width = Tr
         st.info("Make sure all necessary files are correctly generated and the `used_Mehods.py` functions work.")
 
 st.divider()
-st.caption("CopyRights © Reserved for TEAM \'Developers\'.")
+st.caption("CopyRights © Reserved for M.H.A")
