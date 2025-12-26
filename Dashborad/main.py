@@ -98,14 +98,7 @@ st.markdown("""
 <header>
   <h1>📈 AI Revenue Predictor Dashboard</h1>
   <p style='text-align:center; color:var(--subtext-color); font-size:16px;'>
-            <br> Produced <b>As Acamedic Project </b><br/>
-            Done By :- <br/>
-         <p class="member" >   - Engineer /  Mohamed Hassan <br/></p>
-         <p class="member">   - Engineer /  Mohamed Khalaf <br/></p>
-         <p class="member">   - Engineer /  Mohamed Eissa<br/></p>
-        <p class="member">- Engineer /  Rawan Ali <br/></p>
-        <p class="member">    - Engineer /  Nouran Mohamed <br/></p>
-        </p>
+          <p>All copyrights reserved to M.H.A</p> 
 </header>
 """, unsafe_allow_html=True)
 
